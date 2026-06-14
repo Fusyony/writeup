@@ -211,8 +211,8 @@ User trivia may run the following commands on facts:
     (ALL) NOPASSWD: /usr/bin/facter
 ```
 
-[!WARNING]
-facter can be executed as root without any password.
+> [!WARNING]
+> facter can be executed as root without any password.
 
 ### Facter exploit
 
@@ -221,8 +221,8 @@ facter can be executed as root without any password.
 instantly checking the GTFObins website for facter
 https://gtfobins.org/gtfobins/facter/
 
-[!TIP]
-Always check GTFOBins after finding a sudo entry.
+> [!TIP]
+> Always check GTFOBins after finding a sudo entry.
 
 It look like we can execute ruby programs with facter binary
 
