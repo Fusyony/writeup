@@ -5,7 +5,7 @@
 | Type    | Info     |
 | ---------- | ---------- |
 | Name        | Facts      |
-| Dificulty  | Easy       |
+| Difficulty  | Easy       |
 | OS         | Linux      |
 | Release Date       | 2026-01-31 |
 
@@ -39,11 +39,11 @@ Here I choose to focus on the website running on the port 80 first.
 
 ### Website scan
 
-http://facts.htb:80
+focusing on the http://facts.htb:80
 
-[website_pic](screens/website_screen.png)
+![website_pic](screens/website_screen.png)
 
-After browsing the website and checking the headers I didn't found anything really usful, so I started a Nuclei scan who didn't lead to anything usful and a file and directory discovery with ffuf.
+After browsing the website and checking the headers I didn't found anything really useful, so I started a Nuclei scan who didn't lead to anything useful and a file and directory discovery with ffuf.
 
 ```bash
 ffuf -w /usr/share/wordlists/seclists/Discovery/Web-Content/big.txt -u http://facts.htb/FUZZ
@@ -79,11 +79,12 @@ ________________________________________________
 [...]
 admin                   [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 2629ms]
 ajax                    [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 2498ms]
+[...]
 ```
 
 Here there is a lot of false positive, But the admin and the ajax webpage really exist and the webserver, the admin lead me to a login webpage
 
-[login_pic](screens/login_page.png)
+![login_pic](screens/login_page.png)
 
 After creating an account, we can access to a dashboard, in this dashboard web can see that the website is running with camaleon CMS in his version 2.9.0
 
@@ -107,9 +108,9 @@ python/bin/python3 Machines/Facts/cve.py  -u http://facts.htb/ -U mat -P mat
    Updated User Role: admin
 [+]Reverting User Role
 ```
-My user mat is now admin and reveal new fonctionality in the dashboard.
+My user mat is now admin and reveal new functionality in the dashboard.
 
-After looking online what fonctionality of Camaleon CMS could I use to access to the backend I found that there is an other vulnerability on the version 2.9.0 of Camaleon CMS the CVE-2024-46987 (LFI & Path Traversal).
+After looking online what functionality of Camaleon CMS could I use to access to the backend I found that there is an other vulnerability on the version 2.9.0 of Camaleon CMS the CVE-2024-46987 (LFI & Path Traversal).
 script for the vulnerability could be found here: https://www.exploit-db.com/exploits/52531
 But instead of using the script I just tried to include the passwd file with
 
@@ -129,7 +130,7 @@ we can see that there is 2 users in the system, after some attempt trying to get
 ```text
 http://facts.htb/admin/media/download_private_file?file=../../../../../../../../home/trivia/.ssh/id_ed25519
 ```
-finaly answer me with a key.
+finally answer me with a key.
 
 ```text
 -----BEGIN OPENSSH PRIVATE KEY-----
@@ -153,7 +154,7 @@ ssh trivia@10.129.22.193 -i id_ed25519
 Enter passphrase for key 'id_ed25519':
 ```
 
-unfortunatly the key is protected with a passphrase, following this tutorial
+unfortunately the key is protected with a passphrase, following this tutorial
 https://labex.io/tutorials/kali-use-john-the-ripper-to-crack-ssh-private-keys-594223
 I manage to convert the key to an hash with
 
@@ -204,7 +205,7 @@ facter can be executed as root without any password.
 
 ### Facter exploit
 
-instantaly checking the GTFObins website for facter
+instantly checking the GTFObins website for facter
 https://gtfobins.org/gtfobins/facter/
 
 It look like we can execute ruby programs with facter binary
