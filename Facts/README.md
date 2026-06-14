@@ -9,6 +9,16 @@
 | OS         | Linux      |
 | Release Date       | 2026-01-31 |
 
+## Attack Path
+
+→ Camaleon CMS 2.9.0
+→ CVE-2025-2304 (Authenticated Privilege Escalation)
+→ Website Administrator Access
+→ CVE-2024-46987 (LFI / Path Traversal)
+→ SSH Key Crack
+→ SSH Access as trivia
+→ sudo facter
+→ Root Shell
 
 ## User Flag
 
@@ -201,12 +211,18 @@ User trivia may run the following commands on facts:
     (ALL) NOPASSWD: /usr/bin/facter
 ```
 
+[!WARNING]
 facter can be executed as root without any password.
 
 ### Facter exploit
 
+
+
 instantly checking the GTFObins website for facter
 https://gtfobins.org/gtfobins/facter/
+
+[!TIP]
+Always check GTFOBins after finding a sudo entry.
 
 It look like we can execute ruby programs with facter binary
 
